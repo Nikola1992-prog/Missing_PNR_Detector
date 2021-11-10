@@ -2,6 +2,7 @@ import string
 
 
 class MissingPnrDetector:
+    missed_pnrs = []
 
     def __init__(self, serial_start=None, serial_end=None):
         """
@@ -55,6 +56,7 @@ class MissingPnrDetector:
         """
             symbols = ['symbol1', 'symbol2', 'symbol3', 'symbol4', 'symbol5', 'symbol6']
 
+            iterating trow all six symbols and incrementing each column after every circle
 
         """
 
@@ -102,4 +104,5 @@ class MissingPnrDetector:
             if serial_numeric_begin == self.serial_end:
                 break
             else:
-                print(serial_numeric_begin)
+                # print(serial_numeric_begin)
+                self.missed_pnrs.append(serial_numeric_begin)
