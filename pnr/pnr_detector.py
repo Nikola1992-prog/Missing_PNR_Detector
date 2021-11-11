@@ -1,24 +1,33 @@
 import string
 
+numbers_letters_combined = [str(num) for num in range(1, 10)] + (list(string.ascii_uppercase))
+
 
 class MissingPnrDetector:
     missed_pnrs = []
 
-    def __init__(self, serial_start=None, serial_end=None):
+    def __init__(self, serial_start, serial_end):
         """
         :param serial_start: list of 6 char symbols 1 to Z
         :param serial_end: list of 6 char symbols 1 to Z
+
+        NAME:
+            MissingPnrDetector
+
+        DESCRIPTION:
+            Finding all missing PNR ( Passenger Name Record ) serial numbers
+            between two serial numbers
+
+        PACKAGE CONTENTS:
+            pattern method - defining dict key ( 1 - 34 ) -> value ( 1 - Z) pars
+            converting_serial_begin_symbols_to_digits
+            pnr_iterator
         """
-
-        if serial_start is None:
-            serial_start = ['A', 'A', 'A', 'A', 'A', 'A']
         self.serial_start = serial_start
-
-        if serial_end is None:
-            serial_end = ['A', 'A', 'A', 'A', 'A', 'D']
         self.serial_end = serial_end
 
         self.index_symbol = dict()
+        # initializing pattern digits - symbols (value) for convert function
         self.pattern()
 
         self.serial_start_digits = []
@@ -30,14 +39,12 @@ class MissingPnrDetector:
             example 1: { 0 : '1'}
             example 2: { 9 : 'A'}
             example 3: { 34 : 'Z'}
-
-            Last key - value acts as EOF or (None - value)
-            example : { 35 : None }
         """
-        numbers_letters_combined = [str(num) for num in range(1, 10)] + (list(string.ascii_uppercase))
+
         for index, symbol in enumerate(numbers_letters_combined):
             self.index_symbol[index] = symbol
         else:
+            # Last key - value acts as EOF or (None - value)
             self.index_symbol.update({35: None})
 
     def converting_serial_begin_symbols_to_digits(self):
@@ -52,13 +59,14 @@ class MissingPnrDetector:
                 if _ == value:
                     self.serial_start_digits.append(index)
 
-    def serial_iterator(self):
+    def pnr_iterator(self):
         """
-            symbols = ['symbol1', 'symbol2', 'symbol3', 'symbol4', 'symbol5', 'symbol6']
-
             iterating trow all six symbols and incrementing each column after every circle
-
+            all symbols are converted to digits
         """
+
+        # symbols = ['symbol1', 'symbol2', 'symbol3', 'symbol4', 'symbol5', 'symbol6']
+        # example = [   9     ,    9     ,    9     ,    9     ,    9     ,    9     ]
 
         symbol6 = self.serial_start_digits[5]
         symbol5 = self.serial_start_digits[4]
@@ -94,15 +102,15 @@ class MissingPnrDetector:
             if symbol1 == 35:
                 symbol1 = 0
 
-            serial_numeric_begin = [self.index_symbol[symbol1],
+            serial_numeric_start = [self.index_symbol[symbol1],
                                     self.index_symbol[symbol2],
                                     self.index_symbol[symbol3],
                                     self.index_symbol[symbol4],
                                     self.index_symbol[symbol5],
                                     self.index_symbol[symbol6]]
 
-            if serial_numeric_begin == self.serial_end:
+            if serial_numeric_start == self.serial_end:
                 break
             else:
-                # print(serial_numeric_begin)
-                self.missed_pnrs.append(serial_numeric_begin)
+                print(serial_numeric_start)
+                # self.missed_pnrs.append(serial_numeric_begin)
