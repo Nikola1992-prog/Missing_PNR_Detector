@@ -62,3 +62,14 @@ def user_input():
             return first_serial, second_serial
         except (TypeError, ValueError) as e:
             print(e, '\n')
+
+
+def read_pnr_db():
+    while True:
+        try:
+            answer = int(input("Please enter 1 for printing data from DB, or 2 for closing connection with DB: "))
+            if answer not in [1, 2]:
+                continue
+            return True if answer == 1 else False
+        except TypeError as e:
+            print(e, '\n')

@@ -8,26 +8,26 @@ class MissingPnrDetector:
 
     def __init__(self, serial_start, serial_end):
         """
-        :param serial_start: list of 6 char symbols 1 to Z
-        :param serial_end: list of 6 char symbols 1 to Z
+            :param serial_start: list of 6 char symbols 1 to Z
+            :param serial_end: list of 6 char symbols 1 to Z
 
-        NAME:
-            MissingPnrDetector
+            NAME:
+                MissingPnrDetector
 
-        DESCRIPTION:
-            Finding all missing PNR ( Passenger Name Record ) serial numbers
-            between two serial numbers
+            DESCRIPTION:
+                Finding all missing PNR ( Passenger Name Record ) serial numbers
+                between two serial numbers
 
-        PACKAGE CONTENTS:
-            pattern method - defining dict key ( 1 - 34 ) -> value ( 1 - Z) pars
-            converting_serial_begin_symbols_to_digits
-            pnr_iterator
+            PACKAGE CONTENTS:
+                pattern method - defining dict key ( 1 - 34 ) -> value ( 1 - Z) pars
+                converting_serial_begin_symbols_to_digits
+                pnr_iterator
         """
         self.serial_start = serial_start
         self.serial_end = serial_end
 
         self.index_symbol = dict()
-        # initializing pattern digits - symbols (value) for convert function
+        # initializing pattern digits - symbols (value) for convert function below
         self.pattern()
 
         self.serial_start_digits = []
@@ -35,7 +35,7 @@ class MissingPnrDetector:
 
     def pattern(self):
         """
-            For every symbol value in (serial_begin), there is key index
+            For every symbol value in (serial_start), there is key index
             example 1: { 0 : '1'}
             example 2: { 9 : 'A'}
             example 3: { 34 : 'Z'}
@@ -49,7 +49,7 @@ class MissingPnrDetector:
 
     def converting_serial_begin_symbols_to_digits(self):
         """
-            Converting every (serial_begin) entry param symbols (1 to Z) into digits (1 to 34)
+            Converting every (serial_start) entry param symbols (1 to Z) into digits (1 to 34)
             example 1: ['A', 'A', 'A', 'A', 'A', 'Z']  ->  [9, 9, 9, 9, 9, 34]
             example 2: ['A', 'A', 'A', 'A', 'A', '1']  ->  [9, 9, 9, 9, 9, 0]
             example 3: ['A', 'A', 'A', 'A', 'B', 'A']  ->  [9, 9, 9, 9, 10, 9]
@@ -102,15 +102,15 @@ class MissingPnrDetector:
             if symbol1 == 35:
                 symbol1 = 0
 
-            serial_numeric_start = [self.index_symbol[symbol1],
-                                    self.index_symbol[symbol2],
-                                    self.index_symbol[symbol3],
-                                    self.index_symbol[symbol4],
-                                    self.index_symbol[symbol5],
-                                    self.index_symbol[symbol6]]
+            serial_to_increment = [self.index_symbol[symbol1],
+                                   self.index_symbol[symbol2],
+                                   self.index_symbol[symbol3],
+                                   self.index_symbol[symbol4],
+                                   self.index_symbol[symbol5],
+                                   self.index_symbol[symbol6]]
 
-            if serial_numeric_start == self.serial_end:
+            if serial_to_increment == self.serial_end:
                 break
             else:
-                print(serial_numeric_start)
-                # self.missed_pnrs.append(serial_numeric_begin)
+                # print(serial_to_increment)
+                self.missed_pnrs.append(serial_to_increment)

@@ -3,6 +3,7 @@ from pnr.pnr_detector import MissingPnrDetector
 
 
 class TestPnrSerials(unittest.TestCase):
+    #                   start_pnr                       end_pnr
     cases = [[['A', 'A', 'A', 'Z', 'Z', 'Z'], ['A', 'A', 'B', '1', '1', '2']],
              [['A', 'A', 'A', 'A', 'Z', 'Z'], ['A', 'A', 'A', 'B', '1', '2']],
              [['A', 'A', 'A', 'A', 'Z', 'Z'], ['A', 'A', 'A', 'B', '2', '2']],
