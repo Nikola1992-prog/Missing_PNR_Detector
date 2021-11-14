@@ -1,10 +1,12 @@
 # Missing_PNR_Detector
 
 This project is used to find all missing PNRs ( Passenger Name Record ) between the two given ones.
+The idea is to convert the first Pnr into numbers, and increment it in each cycle until it equals the last Pnr.
+All PNRs in between will be stored.
 
 ## About project
 
-Its bulit in virtual environment (venv) using Python 3.9.7
+Its built in virtual environment (venv) using Python 3.9.7
 
 DB used to store missing PNRs is sqlite3 
 
