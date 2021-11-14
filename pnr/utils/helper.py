@@ -1,4 +1,4 @@
-from pnr.pnr_detector import numbers_letters_combined as nlc
+from pnr.pnr_detector import numbers_and_letters
 
 
 def more_than_six_symbols(serial):
@@ -9,7 +9,7 @@ def more_than_six_symbols(serial):
 
 def one_to_z(serial):
     for _ in serial:
-        if _ not in nlc:
+        if _ not in numbers_and_letters:
             return False
     return True
 
@@ -67,7 +67,8 @@ def user_input():
 def read_pnr_db():
     while True:
         try:
-            answer = int(input("Please enter 1 for printing data from DB, or 2 for closing connection with DB: "))
+            answer = int(input(
+                "Please enter 1 for printing data from table \"missed_pnrs\", or 2 for closing connection with DB: "))
             if answer not in [1, 2]:
                 continue
             return True if answer == 1 else False
